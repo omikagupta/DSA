@@ -1,24 +1,18 @@
 class Solution {
-    List<List<Integer>> ans = new ArrayList<>();
-    List<Integer> arr = new ArrayList<>();
-
-    void allsubset(List<List<Integer>> ans, List<Integer> arr, int[] nums, int i) {
-
-        if (i == nums.length) {
-            ans.add(new ArrayList<>(arr));
+    public List<List<Integer>> subsets(int[] nums) {
+List<List<Integer>> ans =new ArrayList<>();
+List<Integer> path=new ArrayList<>(); 
+backtrack(0,nums,ans,path);
+return ans;
+    }
+    public  void backtrack(int index,int[] nums,List<List<Integer>> ans,List<Integer> path){
+        if(index == nums.length){
+            ans.add(new ArrayList<>(path));
             return;
         }
-
-       
-        arr.add(nums[i]);
-        allsubset(ans, arr, nums, i + 1);
-        arr.remove(arr.size() - 1);
-
-        allsubset(ans, arr, nums, i + 1);
-    }
-
-    public List<List<Integer>> subsets(int[] nums) {
-        allsubset(ans, arr, nums, 0);
-        return ans;
+        path.add(nums[index]);
+        backtrack(index+1,nums,ans,path);
+        path.remove(path.size()-1);
+        backtrack(index+1,nums,ans,path); 
     }
 }
