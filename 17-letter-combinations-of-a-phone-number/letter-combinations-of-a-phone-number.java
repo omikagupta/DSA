@@ -1,4 +1,7 @@
+import java.util.*;
+
 class Solution {
+
     public List<String> letterCombinations(String digits) {
 
         List<String> ans = new ArrayList<>();
@@ -7,41 +10,51 @@ class Solution {
             return ans;
         }
 
+        Map<Character, String> map = new HashMap<>();
+
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+
         StringBuilder path = new StringBuilder();
 
-        String[] map = {
-            "", "", "abc", "def",
-            "ghi", "jkl", "mno",
-            "pqrs", "tuv", "wxyz"
-        };
-
-        backtrack(ans, path, digits, 0, map);
+        recurse(digits, 0, path, ans, map);
 
         return ans;
     }
 
-    public void backtrack(List<String> ans,
-                          StringBuilder path,
-                          String digits,
-                          int i,
-                          String[] map) {
+    public void recurse(
+    String digits,
+    int index,
+    StringBuilder path,
+    List<String> ans,
+    Map<Character, String> map
+) {
 
-   
-        if (i == digits.length()) {
-            ans.add(path.toString());
-            return;
-        }
-        String letters = map[digits.charAt(i) - '0'];
-        for (int j = 0; j < letters.length(); j++) {
+    if (index == digits.length()) {
+        ans.add(path.toString());
+        return;
+    }
 
-         
-            path.append(letters.charAt(j));
+    String letters = map.get(digits.charAt(index));
 
-          
-            backtrack(ans, path, digits, i + 1, map);
+    for (int i = 0; i < letters.length(); i++) {
+
+        char ch = letters.charAt(i);
 
         
-            path.deleteCharAt(path.length() - 1);
-        }
+        path.append(ch);
+
+     
+        recurse(digits, index + 1, path, ans, map);
+
+        
+        path.deleteCharAt(path.length() - 1);
     }
+}
 }
