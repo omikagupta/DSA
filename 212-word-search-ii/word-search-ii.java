@@ -89,7 +89,7 @@ class Solution {
         backtrack(board, row, col + 1, node, ans);
 
      
-        backtrack(board, row, col - 1, node, ans);
+        backtrack(board, row,    col - 1, node, ans);
 
      
         board[row][col] = ch;
