@@ -1,14 +1,14 @@
 class Solution {
+
     public boolean canPartition(int[] nums) {
 
         int sum = 0;
 
-        for (int num : nums) {
-            sum += num;
+        for(int i : nums) {
+            sum += i;
         }
 
-        
-        if (sum % 2 != 0) {
+        if(sum % 2 != 0) {
             return false;
         }
 
@@ -16,34 +16,32 @@ class Solution {
 
         Boolean[][] dp = new Boolean[nums.length][target + 1];
 
-        return helper(nums, 0, target, dp);
+        return helper(nums, dp, target, 0);
     }
 
-    public boolean helper(int[] nums, int i, int target, Boolean[][] dp) {
+    public boolean helper(int[] nums, Boolean[][] dp, int target, int i) {
 
-     
-        if (target == 0) {
+      
+        if(target == 0) {
             return true;
         }
 
-
-        if (i == nums.length) {
+      
+        if(i == nums.length) {
             return false;
         }
 
-        if (dp[i][target] != null) {
+        if(dp[i][target] != null) {
             return dp[i][target];
         }
 
-   
-        boolean skip = helper(nums, i + 1, target, dp);
-
-     
         boolean take = false;
 
-        if (nums[i] <= target) {
-            take = helper(nums, i + 1, target - nums[i], dp);
+        if(nums[i] <= target) {
+            take = helper(nums, dp, target - nums[i], i + 1);
         }
+
+        boolean skip = helper(nums, dp, target, i + 1);
 
         dp[i][target] = take || skip;
 
