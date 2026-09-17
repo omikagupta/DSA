@@ -1,23 +1,37 @@
+import java.util.Arrays;
+
 class Solution {
+
     public int numSquares(int n) {
 
-        int INF = 1000000;
-
         int[] dp = new int[n + 1];
-        Arrays.fill(dp, INF);
+        Arrays.fill(dp, -1);
 
-        dp[0] = 0;
+        return helper(n, dp);
+    }
 
-        for (int i = 1; i <= n; i++) {
+    public int helper(int n, int[] dp) {
 
-            for (int j = 1; j * j <= i; j++) {
-
-                int sq = j * j;
-
-                dp[i] = Math.min(dp[i], 1 + dp[i - sq]);
-            }
+     
+        if (n == 0) {
+            return 0;
         }
 
-        return dp[n];
+        if (dp[n] != -1) {
+            return dp[n];
+        }
+
+        int ans = 1000000;
+
+        for (int j = 1; j * j <= n; j++) {
+
+            int sq = j * j;
+
+            int take = 1 + helper(n - sq, dp);
+
+            ans = Math.min(ans, take);
+        }
+
+        return dp[n] = ans;
     }
 }
