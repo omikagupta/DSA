@@ -1,26 +1,29 @@
 class Solution {
     public int numDistinct(String s, String t) {
-        int m = s.length();
-        int n = t.length();
+       int[][]dp=new int[s.length()][t.length()];
+       for(int [] r:dp){
+        Arrays.fill(r,-1);
+       }
+       return helper(s,t,0,0,dp);
 
-        // If target is longer than source, impossible to form t
-        if (m < n) return 0;
-
-        // dp[j] stores the number of subsequences of s that form t[0...j-1]
-        // Using long or double during calculation prevents 32-bit integer overflow on intermediate steps
-        double[] dp = new double[n + 1];
-        dp[0] = 1; // An empty string t can always be formed 1 way
-
-        for (int i = 0; i < m; i++) {
-            char sc = s.charAt(i);
-            // Traverse backwards to use previous row values
-            for (int j = n - 1; j >= 0; j--) {
-                if (sc == t.charAt(j)) {
-                    dp[j + 1] += dp[j];
-                }
-            }
-        }
-
-        return (int) dp[n];
     }
+    public int helper(String s, String t,int i , int j,int [][]dp){
+        if(j == t.length()){
+    return 1;
+}
+if( i == s.length()){
+    return 0;
+}
+
+if(dp[i][j]!= -1){
+    return dp[i][j];
+}
+if(s.charAt(i)==t.charAt(j)){
+dp[i][j]=helper(s,t,i+1,j+1,dp)+helper(s,t,i+1,j,dp);;
+} else{
+dp[i][j]=helper(s,t,i+1,j,dp);
+}
+    return dp[i][j];
+    }
+
 }
