@@ -15,12 +15,11 @@ class Solution {
     public int helper(String word1, String word2,
                       int i, int j, int[][] dp) {
 
-        // word1 exhausted → insert remaining characters of word2
         if (i == word1.length()) {
             return word2.length() - j;
         }
 
-        // word2 exhausted → delete remaining characters of word1
+        
         if (j == word2.length()) {
             return word1.length() - i;
         }
@@ -28,8 +27,7 @@ class Solution {
         if (dp[i][j] != -1) {
             return dp[i][j];
         }
-
-        // Characters already match
+ 
         if (word1.charAt(i) == word2.charAt(j)) {
 
             dp[i][j] = helper(word1, word2, i + 1, j + 1, dp);
