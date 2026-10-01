@@ -1,30 +1,22 @@
-/**
- * Definition for a binary tree node.
- * public class TreeNode {
- *     int val;
- *     TreeNode left;
- *     TreeNode right;
- *     TreeNode() {}
- *     TreeNode(int val) { this.val = val; }
- *     TreeNode(int val, TreeNode left, TreeNode right) {
- *         this.val = val;
- *         this.left = left;
- *         this.right = right;
- *     }
- * }
- */
 class Solution {
-    int cameras;
+
+    int cameras = 0;
+
     public int minCameraCover(TreeNode root) {
-       int state = dfs(root); 
-        if(state == 2){
+        int state = dfs(root);
+
+        if (state == 2) {
             cameras++;
-          
         }
-  return cameras;
+
+        return cameras;
     }
-    public int dfs(TreeNode node){
-              if (node == null) {
+
+  
+    public int dfs(TreeNode node) {
+
+       
+        if (node == null) {
             return 1;
         }
 
@@ -36,11 +28,11 @@ class Solution {
             return 0;
         }
 
+     
         if (left == 0 || right == 0) {
             return 1;
         }
 
-       
         return 2;
     }
 }
